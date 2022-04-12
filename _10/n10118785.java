@@ -1,13 +1,13 @@
-class n10118785{
+class n10118785 {
     @Override
     public void download(String remoteFilePath, String localFilePath) {
         InputStream remoteStream = null;
+        OutputStream localStream = null;
         try {
             remoteStream = client.get(remoteFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        OutputStream localStream = null;
         try {
             localStream = new FileOutputStream(new File(localFilePath));
         } catch (FileNotFoundException e1) {
