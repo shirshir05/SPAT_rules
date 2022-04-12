@@ -1,4 +1,4 @@
-class n10176882 {
+class n10176882{
     @SuppressWarnings("unchecked")
     protected void processDownloadAction(HttpServletRequest request, HttpServletResponse response) throws Exception {
         File transformationFile = new File(xslBase, "file-info.xsl");
@@ -8,8 +8,7 @@ class n10176882 {
         params.put("{" + Definitions.REQUEST_NAMESPACE + "}request", request);
         params.put("{" + Definitions.RESPONSE_NAMESPACE + "}response", response);
         params.put("{" + Definitions.SESSION_NAMESPACE + "}session", request.getSession());
-        params.put("{" + Definitions.INFOFUZE_NAMESPACE + "}development-mode",
-                new Boolean(Config.getInstance().isDevelopmentMode()));
+        params.put("{" + Definitions.INFOFUZE_NAMESPACE + "}development-mode", new Boolean(Config.getInstance().isDevelopmentMode()));
         Transformer transformer = new Transformer();
         transformer.setTransformationFile(transformationFile);
         transformer.setParams(params);
@@ -29,14 +28,14 @@ class n10176882 {
         InputStream is = null;
         try {
             XPath xpath = XPathFactory.newInstance().newXPath();
-            String sourceType = XPathUtils.getStringValue(xpath, "source-type", documentElement, null),
-                    location = XPathUtils.getStringValue(xpath, "location", documentElement, null);
-            String fileName = XPathUtils.getStringValue(xpath, "file-name", documentElement, null),
-                    mimeType = XPathUtils.getStringValue(xpath, "mime-type", documentElement, null);
+            String sourceType = XPathUtils.getStringValue(xpath, "source-type", documentElement, null);
+            String location = XPathUtils.getStringValue(xpath, "location", documentElement, null);
+            String fileName = XPathUtils.getStringValue(xpath, "file-name", documentElement, null);
+            String mimeType = XPathUtils.getStringValue(xpath, "mime-type", documentElement, null);
             String encoding = XPathUtils.getStringValue(xpath, "encoding", documentElement, null);
             if (StringUtils.equals(sourceType, "cifsSource")) {
-                String domain = XPathUtils.getStringValue(xpath, "domain", documentElement, null),
-                        userName = XPathUtils.getStringValue(xpath, "username", documentElement, null);
+                String domain = XPathUtils.getStringValue(xpath, "domain", documentElement, null);
+                String userName = XPathUtils.getStringValue(xpath, "username", documentElement, null);
                 String password = XPathUtils.getStringValue(xpath, "password", documentElement, null);
                 URI uri = new URI(location);
                 if (StringUtils.isNotBlank(userName)) {
@@ -48,8 +47,7 @@ class n10176882 {
                     if (StringUtils.isNotBlank(password)) {
                         userInfo = userInfo + ":" + password;
                     }
-                    uri = new URI(uri.getScheme(), userInfo, uri.getHost(), uri.getPort(), uri.getPath(),
-                            uri.getQuery(), uri.getFragment());
+                    uri = new URI(uri.getScheme(), userInfo, uri.getHost(), uri.getPort(), uri.getPath(), uri.getQuery(), uri.getFragment());
                 }
                 SmbFile smbFile = new SmbFile(uri.toURL());
                 is = new SmbFileInputStream(smbFile);
