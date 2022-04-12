@@ -29,9 +29,12 @@ class n10905999{
                 logExpression(sql.toString());
                 st = con.prepareStatement(sql.toString());
                 int n = 1;
-                st.setString(n++, sUuid);
-                st.setString(n++, sName);
-                st.setInt(n++, this.publisher.getLocalID());
+                st.setString(n, sUuid);
+                n++;
+                st.setString(n, sName);
+                n++;
+                st.setInt(n, this.publisher.getLocalID());
+                n++;
                 nRows = st.executeUpdate();
                 closeStatement(st);
                 if (nRows > 0) {
@@ -72,11 +75,15 @@ class n10905999{
                 st = con.prepareStatement(sql.toString());
                 int n = 1;
                 if (!request.getLockTitle()) {
-                    st.setString(n++, sName);
+                    st.setString(n, sName);
+                    n++;
                 }
-                st.setInt(n++, this.publisher.getLocalID());
-                st.setTimestamp(n++, new Timestamp(System.currentTimeMillis()));
-                st.setString(n++, sUuid);
+                st.setInt(n, this.publisher.getLocalID());
+                n++;
+                st.setTimestamp(n, new Timestamp(System.currentTimeMillis()));
+                n++;
+                st.setString(n, sUuid);
+                n++;
                 nRows = st.executeUpdate();
                 if (nRows > 0) {
                     request.setActionStatus(ImsRequest.ACTION_STATUS_REPLACED);
